@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="column" id="content">
+    <div class="ui grid">
+        <div class="row">
+            <h1 class="ui huge header">
+                OverView
+            </h1>
+        </div>
+    </div>
+    <div class="ui grid">
+        <div class="row">
+            <button class="positive ui button" id="reports" type="submit" value="Get Results"></button>
+            <textarea id="result" style="width=100%;"></textarea>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#reports').on('click', function () {
+                $.ajax({
+                    url: "/Dashboard/GetReports",
+                    type: 'GET',
+                    //data: JSON.stringify(data),
+                    datatype: 'json',
+                    success: function (data) {
+                        //alert(data);
+                        if (data) {
+                            var result = JSON.stringify(data, undefined, 4);
+                            //console.log(result);
+                            //console.log(data);
+                            $('#result').text(result);
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        $('#result').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

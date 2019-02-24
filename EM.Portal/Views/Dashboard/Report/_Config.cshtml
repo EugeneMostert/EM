@@ -1,0 +1,57 @@
+﻿@model EM.Services.HttpClientConsole.ApiClient.Config
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+        <h4>Config</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <hr />
+    <div class="ui form">
+        <div class="row">
+            <div class="fields">
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Key, htmlAttributes: new { @type = "text" })
+                    @Html.EditorFor(model => model.Key)
+                    @Html.ValidationMessageFor(model => model.Key, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Secret, htmlAttributes: new { @type = "text" })
+                    @Html.EditorFor(model => model.Secret)
+                    @Html.ValidationMessageFor(model => model.Secret, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.HiddenFor(model => model.ID)
+
+                <div class="field">
+                    @Html.LabelFor(model => model.BaseUrl, htmlAttributes: new { @type = "text" })
+                    @Html.EditorFor(model => model.BaseUrl)
+                    @Html.ValidationMessageFor(model => model.BaseUrl, "", new { @class = "text-danger" })
+                </div>
+
+
+                <div class="field">
+
+                    @Html.LabelFor(model => model.Schema, htmlAttributes: new { @type = "text" })
+                    @Html.EditorFor(model => model.Schema)
+                    @Html.ValidationMessageFor(model => model.Schema, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Port, htmlAttributes: new { @type = "text" })
+                    @Html.EditorFor(model => model.Port)
+                    @Html.ValidationMessageFor(model => model.Port, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(model => model.Path, htmlAttributes: new { @type = "text" })
+                    @Html.EditorFor(model => model.Path)
+                    @Html.ValidationMessageFor(model => model.Path, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+}

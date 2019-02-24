@@ -1,0 +1,101 @@
+﻿@model EM.Services.AlphaVantage.Entities.MetaData
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <H3>Time Series Info</H3>
+                </th>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                Information
+            </td>
+            <td>
+                @Model.MetaInfo.Information
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Symbol
+            </td>
+            <td>
+                @Model.MetaInfo.Symbol
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Last Refreshed
+            </td>
+            <td>
+                @Model.MetaInfo.LastRefreshed
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Interval
+            </td>
+            <td>
+                @Model.MetaInfo.Interval
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Output Size
+            </td>
+            <td>
+                @Model.MetaInfo.OutputSize
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Time Zone
+            </td>
+            <td>
+                @Model.MetaInfo.TimeZone
+            </td>
+        </tr>
+    </table>
+
+    <table class="ui striped table">
+        <thead>
+            <tr>
+                <th>
+                    Time Stamp
+                </th>
+                <th>
+                    Open
+                </th>
+                <th>
+                    High
+                </th>
+                <th>
+                    Low
+                </th>
+                <th>
+                    Close
+                </th>
+                <th>
+                    Volume
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.TimeSeries)
+        {
+            <tr>
+                <td>@item.Key</td>
+                <td>@item.Value.Open</td>
+                <td>@item.Value.High</td>
+                <td>@item.Value.Low</td>
+                <td>@item.Value.Close</td>
+                <td>@item.Value.Volume</td>
+            </tr>
+        }
+
+    </table>
+}
+

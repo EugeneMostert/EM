@@ -1,0 +1,26 @@
+﻿@model EM.Portal.Models.ReportViewModel
+
+@{
+    ViewBag.Title = "Reports";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="row">
+    @Html.Partial("Report/_StockTimeSeries", Model.StockTimeSeries)
+</div>
+<div class="row">
+    @Html.Partial("Report/_Config", Model._config)
+</div>
+<button type="submit"></button>
+
+<div class="row">
+    @{Html.RenderAction("_ReportResults"); }
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
