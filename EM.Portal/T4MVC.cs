@@ -105,8 +105,20 @@ namespace Links
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
         public static readonly string modernizr_2_8_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/modernizr-2.8.3.min.js") ? Url("modernizr-2.8.3.min.js") : Url("modernizr-2.8.3.js");
-        public static readonly string semantic_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/semantic.min.js") ? Url("semantic.min.js") : Url("semantic.js");
-        public static readonly string semantic_min_js = Url("semantic.min.js");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Semantic_Modules {
+            public const string UrlPath = "~/Scripts/Semantic-Modules";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+            public static readonly string dropdown_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/dropdown.min.js") ? Url("dropdown.min.js") : Url("dropdown.js");
+            public static readonly string dropdown_min_js = Url("dropdown.min.js");
+            public static readonly string Initialize_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Initialize.min.js") ? Url("Initialize.min.js") : Url("Initialize.js");
+            public static readonly string search_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/search.min.js") ? Url("search.min.js") : Url("search.js");
+            public static readonly string search_min_js = Url("search.min.js");
+            public static readonly string semantic_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/semantic.min.js") ? Url("semantic.min.js") : Url("semantic.js");
+            public static readonly string semantic_min_js = Url("semantic.min.js");
+        }
+    
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -123,8 +135,23 @@ namespace Links
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
         public static readonly string bootstrap_min_css_map = Url("bootstrap.min.css.map");
         public static readonly string dashboard_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/dashboard.min.css") ? Url("dashboard.min.css") : Url("dashboard.css");
-        public static readonly string semantic_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/semantic.min.css") ? Url("semantic.min.css") : Url("semantic.css");
-        public static readonly string semantic_min_css = Url("semantic.min.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Semantic_Modules {
+            public const string UrlPath = "~/Content/Semantic-Modules";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+            public static readonly string dropdown_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/dropdown.min.css") ? Url("dropdown.min.css") : Url("dropdown.css");
+            public static readonly string dropdown_min_css = Url("dropdown.min.css");
+            public static readonly string icon_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/icon.min.css") ? Url("icon.min.css") : Url("icon.css");
+            public static readonly string icon_min_css = Url("icon.min.css");
+            public static readonly string label_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/label.min.css") ? Url("label.min.css") : Url("label.css");
+            public static readonly string label_min_css = Url("label.min.css");
+            public static readonly string search_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/search.min.css") ? Url("search.min.css") : Url("search.css");
+            public static readonly string search_min_css = Url("search.min.css");
+            public static readonly string semantic_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/semantic.min.css") ? Url("semantic.min.css") : Url("semantic.css");
+            public static readonly string semantic_min_css = Url("semantic.min.css");
+        }
+    
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
     }
 
@@ -134,6 +161,19 @@ namespace Links
     {
         public static partial class Scripts 
         {
+            public static partial class Semantic_Modules 
+            {
+                public static class Assets
+                {
+                    public static readonly string dropdown_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Semantic-Modules/dropdown.js"); 
+                    public static readonly string dropdown_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Semantic-Modules/dropdown.min.js"); 
+                    public static readonly string Initialize_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Semantic-Modules/Initialize.js"); 
+                    public static readonly string search_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Semantic-Modules/search.js"); 
+                    public static readonly string search_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Semantic-Modules/search.min.js"); 
+                    public static readonly string semantic_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Semantic-Modules/semantic.js"); 
+                    public static readonly string semantic_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/Semantic-Modules/semantic.min.js"); 
+                }
+            }
             public static class Assets
             {
                 public static readonly string bootstrap_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/bootstrap.js"); 
@@ -148,12 +188,26 @@ namespace Links
                 public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.unobtrusive.js"); 
                 public static readonly string jquery_validate_unobtrusive_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/jquery.validate.unobtrusive.min.js"); 
                 public static readonly string modernizr_2_8_3_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/modernizr-2.8.3.js"); 
-                public static readonly string semantic_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/semantic.js"); 
-                public static readonly string semantic_min_js = T4MVCHelpers.ProcessAssetPath("~/Scripts/semantic.min.js"); 
             }
         }
         public static partial class Content 
         {
+            public static partial class Semantic_Modules 
+            {
+                public static class Assets
+                {
+                    public static readonly string dropdown_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/dropdown.css");
+                    public static readonly string dropdown_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/dropdown.min.css");
+                    public static readonly string icon_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/icon.css");
+                    public static readonly string icon_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/icon.min.css");
+                    public static readonly string label_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/label.css");
+                    public static readonly string label_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/label.min.css");
+                    public static readonly string search_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/search.css");
+                    public static readonly string search_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/search.min.css");
+                    public static readonly string semantic_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/semantic.css");
+                    public static readonly string semantic_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/Semantic-Modules/semantic.min.css");
+                }
+            }
             public static class Assets
             {
                 public static readonly string bootstrap_theme_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap-theme.css");
@@ -161,8 +215,6 @@ namespace Links
                 public static readonly string bootstrap_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.css");
                 public static readonly string bootstrap_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/bootstrap.min.css");
                 public static readonly string dashboard_css = T4MVCHelpers.ProcessAssetPath("~/Content/dashboard.css");
-                public static readonly string semantic_css = T4MVCHelpers.ProcessAssetPath("~/Content/semantic.css");
-                public static readonly string semantic_min_css = T4MVCHelpers.ProcessAssetPath("~/Content/semantic.min.css");
                 public static readonly string Site_css = T4MVCHelpers.ProcessAssetPath("~/Content/Site.css");
             }
         }

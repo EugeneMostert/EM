@@ -24,10 +24,14 @@ namespace EM.Portal
 
             bundles.Add(new ScriptBundle("~/bundles/semantic").Include(
                        "~/Scripts/Semantic-Modules/*.js"
-                      //, "~/Scripts/Semantic-Modules/dropdown.js"
+                      , "~/Views/Dashboard/Report.js"
                       //, "~/Scripts/Semantic-Modules/search.js"
                       //, "~/Scripts/Semantic-Modules/label.css"
                       //, "~/Scripts/Semantic-Modules/icon.css"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
+                      "~/Views/Dashboard/Report.cshtml.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

@@ -61,6 +61,18 @@ namespace EM.Portal.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ReportResults()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReportResults);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult GetReports()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetReports);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Details()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
@@ -96,6 +108,7 @@ namespace EM.Portal.Controllers
             public readonly string Index = "Index";
             public readonly string OverView = "OverView";
             public readonly string Reports = "Reports";
+            public readonly string ReportResults = "ReportResults";
             public readonly string _ReportResults = "_ReportResults";
             public readonly string GetReports = "GetReports";
             public readonly string Details = "Details";
@@ -110,6 +123,7 @@ namespace EM.Portal.Controllers
             public const string Index = "Index";
             public const string OverView = "OverView";
             public const string Reports = "Reports";
+            public const string ReportResults = "ReportResults";
             public const string _ReportResults = "_ReportResults";
             public const string GetReports = "GetReports";
             public const string Details = "Details";
@@ -119,6 +133,22 @@ namespace EM.Portal.Controllers
         }
 
 
+        static readonly ActionParamsClass_ReportResults s_params_ReportResults = new ActionParamsClass_ReportResults();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ReportResults ReportResultsParams { get { return s_params_ReportResults; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ReportResults
+        {
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_GetReports s_params_GetReports = new ActionParamsClass_GetReports();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetReports GetReportsParams { get { return s_params_GetReports; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetReports
+        {
+            public readonly string model = "model";
+        }
         static readonly ActionParamsClass_Details s_params_Details = new ActionParamsClass_Details();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Details DetailsParams { get { return s_params_Details; } }
@@ -231,6 +261,18 @@ namespace EM.Portal.Controllers
         }
 
         [NonAction]
+        partial void ReportResultsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, EM.Portal.Models.ReportViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ReportResults(EM.Portal.Models.ReportViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReportResults);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ReportResultsOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void _ReportResultsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
@@ -242,13 +284,14 @@ namespace EM.Portal.Controllers
         }
 
         [NonAction]
-        partial void GetReportsOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+        partial void GetReportsOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, EM.Portal.Models.ReportViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.JsonResult GetReports()
+        public override System.Web.Mvc.JsonResult GetReports(EM.Portal.Models.ReportViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetReports);
-            GetReportsOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            GetReportsOverride(callInfo, model);
             return callInfo;
         }
 
