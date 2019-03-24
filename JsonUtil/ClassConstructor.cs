@@ -68,12 +68,7 @@ namespace JsonUtil
 
         private void RecursiveClasses(string className, Dictionary<string, object> obdic)
         {
-            FileHierarchy.Classes.Add(new Class
-            {
-                Name = className.StripChars(),
-                Description = className
-
-            });
+            FileHierarchy.Classes.Add(new Class(className, AccessModifier.Public));
 
             var cItem = FileHierarchy.Classes.Find(c => c.Name == className.StripChars());
             cItem.Properties = new List<ClassProperty>();
@@ -81,14 +76,8 @@ namespace JsonUtil
 ;
             foreach (var pair in obdic)
             {
-                cItem.Properties.Add(new ClassProperty
-                {
-                    Name = pair.Key.StripChars(),
-                    AccessModifier = AccessModifier.Public,
-                    DataType = pair.Key.StripChars(),
-                    Description = pair.Key
-
-                });
+                //TODO check isclass parameter
+                cItem.Properties.Add(new ClassProperty(pair.Key, AccessModifier.Public, pair.Key, false));
 
                 var vType = pair.Value.GetType();
 

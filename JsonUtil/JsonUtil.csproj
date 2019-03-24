@@ -52,6 +52,8 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileHierArchy.cs" />
+    <Compile Include="JSON.cs" />
+    <Compile Include="JsonFieldsCollector.cs" />
     <Compile Include="JsonNewtonParser.cs" />
     <Compile Include="NamespaceWriter.cs" />
     <Compile Include="Program.cs" />
@@ -59,6 +61,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Examples\Example1.JSON">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Examples\Example2.JSON">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Examples\Example3.JSON">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Examples\Example4.JSON">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Examples\Example5.JSON">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

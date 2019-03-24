@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -29,5 +30,24 @@ namespace JsonUtil
             result = rgx.Replace(toStrip, "").Replace(" ", "");
             return result;
         }
+
+        //public static string Serialization(this T obj)
+        //{
+        //    string data = JsonConvert.SerializeObject(obj);
+        //    return data;
+        //}
+
+        //public static T Deserialization(this string JsonData)
+        //{
+        //    T copy = JsonConvert.DeserializeObject(JsonData);
+        //    return copy;
+        //}
+
+        //public static T Clone(this T obj)
+        //{
+        //    string data = JsonConvert.SerializeObject(obj);
+        //    T copy = JsonConvert.DeserializeObject(data);
+        //    return copy;
+        //}
     }
 }
