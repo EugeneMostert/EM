@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 
 namespace JsonUtil
 {
@@ -31,7 +32,7 @@ namespace JsonUtil
             {
                 var text = File.ReadAllText(file);
                 //var jobject = Newtonsoft.Json.JsonConvert.DeserializeObject(File.ReadAllText(file));
-
+                
                 //Read(text);
                 //WriteLines(file);
                 var json = JToken.Parse(text);
@@ -71,7 +72,27 @@ namespace JsonUtil
             Console.Read();
 
         }
+        private static void UseJsonFieldsCollector()
+        {
+            var example = @"Examples\Example1.JSON";
+            var example1 = @"c:\em\test2.json";
 
+            var files = new List<string>
+            {
+                //example,
+                example1
+            };
+
+            foreach (var file in files)
+            {
+                var text = File.ReadAllText(file);
+                var json = JToken.Parse(text);
+                var fieldsCollector = new JsonFieldsCollector(json, AccessModifier.Public);
+                var fields = fieldsCollector.GetAllFields();
+                foreach (var field in fields)
+                    Console.WriteLine($"{field.Key}: '{field.Value}'");
+            }
+        }
         public static FileHierArchy Hierarchy { get; set; }
         private static void Read(string json)
         {

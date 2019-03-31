@@ -9,28 +9,32 @@ namespace DatabaseHelper
 {
     public class TableClass
     {
-        private List<KeyValuePair<String, Type>> _fieldInfo = new List<KeyValuePair<String, Type>>();
-        private string _className = String.Empty;
+        #region Private Properties
+        private List<KeyValuePair<string, Type>> _fieldInfo = new List<KeyValuePair<string, Type>>();
+        private string _className = string.Empty;
+        private IDictionary<Type, string> dataMapper { get; set; }// = new Dictionary<Type, string>();
+        #endregion
 
-        private Dictionary<Type, String> dataMapper
+        #region CTOR
+        public TableClass(Type t, IDictionary<Type, string> dataMapper)
         {
-            get
-            {
-                // Add the rest of your CLR Types to SQL Types mapping here
-                Dictionary<Type, String> dataMapper = new Dictionary<Type, string>();
-                dataMapper.Add(typeof(int), "BIGINT");
-                dataMapper.Add(typeof(string), "NVARCHAR(500)");
-                dataMapper.Add(typeof(bool), "BIT");
-                dataMapper.Add(typeof(DateTime), "DATETIME");
-                dataMapper.Add(typeof(float), "FLOAT");
-                dataMapper.Add(typeof(decimal), "DECIMAL(18,0)");
-                dataMapper.Add(typeof(Guid), "UNIQUEIDENTIFIER");
+            this.dataMapper = dataMapper;
+            this._className = t.Name;
 
-                return dataMapper;
+            foreach (PropertyInfo p in t.GetProperties())
+            {
+                if (p.MemberType == MemberTypes.Property)
+                {
+                    KeyValuePair<string, Type> field = new KeyValuePair<string, Type>(p.Name, p.PropertyType);
+
+                    this.Fields.Add(field);
+                }
             }
         }
+        #endregion
 
-        public List<KeyValuePair<String, Type>> Fields
+        #region Public Properties
+        public List<KeyValuePair<string, Type>> Fields
         {
             get { return this._fieldInfo; }
             set { this._fieldInfo = value; }
@@ -41,19 +45,9 @@ namespace DatabaseHelper
             get { return this._className; }
             set { this._className = value; }
         }
+        #endregion
 
-        public TableClass(Type t)
-        {
-            this._className = t.Name;
-
-            foreach (PropertyInfo p in t.GetProperties())
-            {
-                KeyValuePair<String, Type> field = new KeyValuePair<String, Type>(p.Name, p.PropertyType);
-
-                this.Fields.Add(field);
-            }
-        }
-
+        #region public Methods
         public string CreateTableScript()
         {
             System.Text.StringBuilder script = new StringBuilder();
@@ -63,7 +57,7 @@ namespace DatabaseHelper
             script.AppendLine("\t ID BIGINT,");
             for (int i = 0; i < this.Fields.Count; i++)
             {
-                KeyValuePair<String, Type> field = this.Fields[i];
+                KeyValuePair<string, Type> field = this.Fields[i];
 
                 if (dataMapper.ContainsKey(field.Value))
                 {
@@ -87,5 +81,8 @@ namespace DatabaseHelper
 
             return script.ToString();
         }
+        #endregion
     }
+
+    //public class 
 }
