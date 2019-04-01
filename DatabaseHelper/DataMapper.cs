@@ -8,7 +8,7 @@ namespace DatabaseHelper
 {
     public interface IDataMapper
     {
-        Dictionary<Type, string> MapDataType(IDictionary<MapperDataType, string> dataMapping);
+        Dictionary<Type, string> ToDictionary(IDictionary<MapperDataType, string> dataMapping);
     }
 
     class DataMapper : IDataMapper
@@ -17,7 +17,7 @@ namespace DatabaseHelper
         {
         }
 
-        public Dictionary<Type, string> MapDataType(IDictionary<MapperDataType, string> dataMapping)
+        public Dictionary<Type, string> ToDictionary(IDictionary<MapperDataType, string> dataMapping)
         {
             var mappedTypes = new Dictionary<Type, string>();
             foreach(var type in dataMapping)
@@ -27,6 +27,16 @@ namespace DatabaseHelper
             }
 
             return mappedTypes;
+        }
+
+        public List<DataMapType> ToList(IDictionary<MapperDataType, string> dataMapping)
+        {
+            var mappedDataTypes = new List<DataMapType>();
+            foreach(var type in dataMapping)
+            {
+                mappedDataTypes.Add(new DataMapType(type.Key, type.Value));
+            }
+            return mappedDataTypes;
         }
 
         private Type GetDataType(MapperDataType mapperDataType)
@@ -80,6 +90,47 @@ namespace DatabaseHelper
         //        return dataMapper;
         //    }
         //}
+    }
+
+    public class DataMapType
+    {
+        private MapperDataType mapperDataType;
+        private string mapToType;
+
+        public DataMapType(MapperDataType mapperDataType, string mapToType)
+        {
+            this.mapperDataType = mapperDataType;
+            this.mapToType = mapToType;
+        }
+
+        public Type Type
+        {
+            get
+            {
+                switch (this.mapperDataType)
+                {
+                    case MapperDataType.Int:
+                        return typeof(int);
+                    case MapperDataType.String:
+                        return typeof(string);
+                    case MapperDataType.Bool:
+                        return typeof(bool);
+                    case MapperDataType.DateTime:
+                        return typeof(DateTime);
+                    case MapperDataType.Float:
+                        return typeof(float);
+                    case MapperDataType.Decimal:
+                        return typeof(decimal);
+                    case MapperDataType.Guid:
+                        return typeof(Guid);
+                    default:
+                        return null;
+                }
+            }
+
+        }
+        public MapperDataType MapperDataType { get => mapperDataType; set => mapperDataType = value; }
+        public string MapToType { get => mapToType; set => mapToType = value; }
     }
 
     public interface IDataTypeConfig

@@ -15,7 +15,7 @@ namespace DatabaseHelper
         private IDictionary<Type, string> dataMapper { get; set; }// = new Dictionary<Type, string>();
         #endregion
 
-        #region CTOR
+        #region Constructor
         public TableClass(Type t, IDictionary<Type, string> dataMapper)
         {
             this.dataMapper = dataMapper;
@@ -81,8 +81,64 @@ namespace DatabaseHelper
 
             return script.ToString();
         }
+
+        public TableSchema GetTableSchema()
+        {
+            var tableSchema = new TableSchema();
+            tableSchema.Name = this.ClassName;
+            foreach (var column in Fields)
+            {
+                if(dataMapper.ContainsKey(column.Value))
+                {
+                    tableSchema.Columns.Add(new ColumnDefinition
+                    {
+                        Name = column.Key,
+                        DataType = dataMapper[column.Value],
+                        Length = GetDefaultDataLength(dataMapper[column.Value]),
+                        Constraints = GetDefaultConstraints(dataMapper[column.Value])
+
+                    });
+                }
+            }
+        }
+
+        private List<string> GetDefaultConstraints(string v)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int GetDefaultDataLength(string v)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 
-    //public class 
+    public class TableSchema
+    {
+        public string Name { get; set; }
+        public Columns Columns { get; set; }
+        public PrimaryKeys PrimaryKeys { get; set; }
+    }
+
+    public class PrimaryKeys: List<PrimaryKey>
+    {
+    }
+
+    public class PrimaryKey
+    {
+    }
+
+    public class Columns : List<ColumnDefinition>
+    {
+
+    }
+
+    public class ColumnDefinition
+    {
+        public string Name { get; set; }
+        public string DataType { get; set; }
+        public int Length { get; set; }
+        public List<string> Constraints { get; set; }
+    }
 }

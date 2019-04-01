@@ -17,24 +17,44 @@ namespace DatabaseHelper
         }
 
         #endregion
-        #region Private Properties
-        private Dictionary<Type, string> DataMapper
-        {
-            get
-            {
-                // Add the rest of your CLR Types to SQL Types mapping here
-                Dictionary<Type, string> dataMapper = new Dictionary<Type, string>();
-                dataMapper.Add(typeof(int), "BIGINT");
-                dataMapper.Add(typeof(string), "NVARCHAR(500)");
-                dataMapper.Add(typeof(bool), "BIT");
-                dataMapper.Add(typeof(DateTime), "DATETIME");
-                dataMapper.Add(typeof(float), "FLOAT");
-                dataMapper.Add(typeof(decimal), "DECIMAL(18,0)");
-                dataMapper.Add(typeof(Guid), "UNIQUEIDENTIFIER");
 
-                return dataMapper;
-            }
+        #region Private Properties
+        //private Dictionary<Type, string> MappedDataTypes
+        //{
+        //    get
+        //    {
+        //        // Add the rest of your CLR Types to SQL Types mapping here
+        //        Dictionary<Type, string> dataMapper = new Dictionary<Type, string>();
+        //        dataMapper.Add(typeof(int), "BIGINT");
+        //        dataMapper.Add(typeof(string), "NVARCHAR(500)");
+        //        dataMapper.Add(typeof(bool), "BIT");
+        //        dataMapper.Add(typeof(DateTime), "DATETIME");
+        //        dataMapper.Add(typeof(float), "FLOAT");
+        //        dataMapper.Add(typeof(decimal), "DECIMAL(18,0)");
+        //        dataMapper.Add(typeof(Guid), "UNIQUEIDENTIFIER");
+
+        //        return dataMapper;
+        //    }
+        //}
+
+        public Dictionary<Type, string> DataMapper()
+        {
+
+            var dataMapper = new Dictionary<MapperDataType, string>
+            {
+                { MapperDataType.Int, "BIGINT" },
+                { MapperDataType.String, "NVARCHAR(500)" },
+                { MapperDataType.Bool, "BIT" },
+                { MapperDataType.DateTime, "DATETIME" },
+                { MapperDataType.Float, "FLOAT" },
+                { MapperDataType.Decimal, "DECIMAL(18,0)" },
+                { MapperDataType.Guid, "UNIQUEIDENTIFIER" }
+            };
+            var mapper = new DataMapper();
+            return mapper.ToDictionary(dataMapper);
+
         }
+
 
         public List<TableClass> Tables { get; set; } = new List<TableClass>();
         #endregion
@@ -79,7 +99,7 @@ namespace DatabaseHelper
             // Get Types in the assembly.
             foreach (Type t in types)
             {
-                TableClass tc = new TableClass(t, DataMapper);
+                TableClass tc = new TableClass(t, DataMapper());
                 Tables.Add(tc);
             }
 
