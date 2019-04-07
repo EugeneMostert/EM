@@ -11,7 +11,7 @@ namespace DatabaseHelper
         Dictionary<Type, string> ToDictionary(IDictionary<MapperDataType, string> dataMapping);
     }
 
-    class DataMapper : IDataMapper
+    public class DataMapper : Dictionary<MapperDataType, string>
     {
         public DataMapper()
         {
@@ -29,17 +29,17 @@ namespace DatabaseHelper
             return mappedTypes;
         }
 
-        public List<DataMapType> ToList(IDictionary<MapperDataType, string> dataMapping)
+        public List<DataTypeMap> ToList(IDictionary<MapperDataType, string> dataMapping)
         {
-            var mappedDataTypes = new List<DataMapType>();
+            var mappedDataTypes = new List<DataTypeMap>();
             foreach(var type in dataMapping)
             {
-                mappedDataTypes.Add(new DataMapType(type.Key, type.Value));
+                mappedDataTypes.Add(new DataTypeMap(type.Key, type.Value));
             }
             return mappedDataTypes;
         }
 
-        private Type GetDataType(MapperDataType mapperDataType)
+        public Type GetDataType(MapperDataType mapperDataType)
         {
             switch (mapperDataType)
             {
@@ -92,12 +92,12 @@ namespace DatabaseHelper
         //}
     }
 
-    public class DataMapType
+    public class DataTypeMap
     {
         private MapperDataType mapperDataType;
         private string mapToType;
 
-        public DataMapType(MapperDataType mapperDataType, string mapToType)
+        public DataTypeMap(MapperDataType mapperDataType, string mapToType)
         {
             this.mapperDataType = mapperDataType;
             this.mapToType = mapToType;

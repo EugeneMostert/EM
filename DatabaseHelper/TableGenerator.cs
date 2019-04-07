@@ -40,7 +40,7 @@ namespace DatabaseHelper
         public Dictionary<Type, string> DataMapper()
         {
 
-            var dataMapper = new Dictionary<MapperDataType, string>
+            var dataMapper = new DataMapper
             {
                 { MapperDataType.Int, "BIGINT" },
                 { MapperDataType.String, "NVARCHAR(500)" },

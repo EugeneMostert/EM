@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,6 +13,11 @@ namespace DatabaseHelper
         #region Private Properties
         private List<KeyValuePair<string, Type>> _fieldInfo = new List<KeyValuePair<string, Type>>();
         private string _className = string.Empty;
+        private Type t;
+        private DataMapper dataMapper1;
+        
+
+
         private IDictionary<Type, string> dataMapper { get; set; }// = new Dictionary<Type, string>();
         #endregion
 
@@ -30,6 +36,12 @@ namespace DatabaseHelper
                     this.Fields.Add(field);
                 }
             }
+        }
+
+        public TableClass(Type t, DataMapper dataMapper1)
+        {
+            this.t = t;
+            this.dataMapper1 = dataMapper1;
         }
         #endregion
 
@@ -82,27 +94,28 @@ namespace DatabaseHelper
             return script.ToString();
         }
 
-        public TableSchema GetTableSchema()
+        public TableDefinition GetTableDefinition()
         {
-            var tableSchema = new TableSchema();
-            tableSchema.Name = this.ClassName;
+            var tableSchema = new TableDefinition();
+            tableSchema.TableName = this.ClassName;
             foreach (var column in Fields)
             {
                 if(dataMapper.ContainsKey(column.Value))
                 {
                     tableSchema.Columns.Add(new ColumnDefinition
                     {
-                        Name = column.Key,
+                        ColumnName = column.Key,
                         DataType = dataMapper[column.Value],
-                        Length = GetDefaultDataLength(dataMapper[column.Value]),
-                        Constraints = GetDefaultConstraints(dataMapper[column.Value])
+                        MaxLength = GetDefaultDataLength(dataMapper[column.Value]),
+                        //Constraints = GetDefaultConstraints(dataMapper[column.Value])
 
                     });
                 }
             }
+            return tableSchema;
         }
 
-        private List<string> GetDefaultConstraints(string v)
+        private List<ColumnConstraints> GetDefaultConstraints(string v)
         {
             throw new NotImplementedException();
         }
@@ -114,31 +127,5 @@ namespace DatabaseHelper
         #endregion
     }
 
-    public class TableSchema
-    {
-        public string Name { get; set; }
-        public Columns Columns { get; set; }
-        public PrimaryKeys PrimaryKeys { get; set; }
-    }
-
-    public class PrimaryKeys: List<PrimaryKey>
-    {
-    }
-
-    public class PrimaryKey
-    {
-    }
-
-    public class Columns : List<ColumnDefinition>
-    {
-
-    }
-
-    public class ColumnDefinition
-    {
-        public string Name { get; set; }
-        public string DataType { get; set; }
-        public int Length { get; set; }
-        public List<string> Constraints { get; set; }
-    }
+    
 }
