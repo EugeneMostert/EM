@@ -15,7 +15,6 @@ namespace DatabaseHelper
 
             var tablegen = new TableGenerator();
             tablegen.GenerateFromBinary("EM.Entities.dll");
-
             
         }
 

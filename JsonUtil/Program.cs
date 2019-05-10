@@ -36,7 +36,7 @@ namespace JsonUtil
                 //Read(text);
                 //WriteLines(file);
                 var json = JToken.Parse(text);
-                var fieldsCollector = new JsonFieldsCollector(json, AccessModifier.Public);
+                var fieldsCollector = new JsonFieldsCollector1(json, AccessModifier.Public);
                 var fields = fieldsCollector.GetAllFields();
                 foreach (var field in fields)
                     Console.WriteLine($"{field.Key}: '{field.Value}'");

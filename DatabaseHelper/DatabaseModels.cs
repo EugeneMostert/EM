@@ -7,18 +7,14 @@ using System.Threading.Tasks;
 
 namespace DatabaseHelper
 {
-    public interface ITableSchema
+    public class Tables : List<TableDefinition> { }
+
+    public interface ITableDefinition
     {
-        string Name { get; set; }
+        string TableName { get; set; }
         Columns Columns { get; set; }
         PrimaryKeys PrimaryKeys { get; set; }
-    }
-
-    public class TableSchema : ITableSchema
-    {
-        public string Name { get; set; }
-        public Columns Columns { get; set; }
-        public PrimaryKeys PrimaryKeys { get; set; }
+        ForeignKeys ForeighnKeys { get; set; }
     }
 
     public class TableDefinition
@@ -57,8 +53,16 @@ namespace DatabaseHelper
     {
 
     }
-
-    public class ColumnDefinition
+    public interface IColumnDefinition
+    {
+        int Ordinal { get; set; }
+        string ColumnName { get; set; }
+        string DataType { get; set; }
+        int MaxLength { get; set; }
+        bool IsNullable { get; set; }
+        ColumnContraints Constraints { get; set; }
+    }
+    public class ColumnDefinition : IColumnDefinition
     {
         public int Ordinal { get; set; }
         public string ColumnName { get; set; }

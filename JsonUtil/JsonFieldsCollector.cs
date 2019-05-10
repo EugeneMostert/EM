@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class JsonFieldsCollector
 {
@@ -14,6 +15,8 @@ public class JsonFieldsCollector
         FileHierArchy = new FileHierArchy();
         FileHierArchy.Classes = new List<Class>();
         FileHierArchy.Classes.Add(new Class("IntialClass", AccessModifier));
+        Route = new StringBuilder();
+        Routes = new List<string>();
         CollectFields(token);
         JObject jObject = JObject.Parse(token.ToString());
 
@@ -61,14 +64,15 @@ public class JsonFieldsCollector
                 ///CollectFields(((JProperty)jToken).Value);
                 break;
             default:
-                fields.Add(jToken.Path, (JValue)jToken);
+                HandleField(jToken);
+                //fields.Add(jToken.Path, (JValue)jToken);
                 break;
         }
     }
 
     private void HandleJObject(JToken jToken)
     {
-
+        AppendPath(jToken);
         string parent = string.Empty;
 
         parent = jToken.Parent == null ? "IntialClass" : ((JProperty)jToken.Parent).Name;
@@ -78,6 +82,9 @@ public class JsonFieldsCollector
 
         foreach (var child in jToken.Children<JProperty>())
         {
+            if (jToken.Children().Count() > 1)
+                //"";
+
             CollectFields(child);
         }
     }
@@ -94,7 +101,7 @@ public class JsonFieldsCollector
 
     private void HandleJProperty(JToken jToken)
     {
-
+        AppendPath(jToken);
         string parent = string.Empty;
         if (jToken.Parent.Parent == null)
         {
@@ -121,6 +128,24 @@ public class JsonFieldsCollector
         //must happen
         var jPropValue = ((JProperty)jToken).Value;
         CollectFields(jPropValue);
+    }
+
+    private void HandleField(JToken jToken)
+    {
+        AppendPath(jToken);
+        Routes.Add(Route.ToString());
+        Console.WriteLine(Route.ToString());
+        fields.Add(jToken.Path, (JValue)jToken);
+        Route = new StringBuilder();
+    }
+
+    private List<string> Routes { get; set; }
+    public StringBuilder Route { get; set; }
+
+    private void AppendPath(JToken jtoken)
+    {
+        var type = jtoken.Type.ToString();
+        Route.AppendFormat($"[{type}]");
     }
 
     public IEnumerable<KeyValuePair<string, JValue>> GetAllFields() => fields;

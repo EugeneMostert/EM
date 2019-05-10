@@ -57,6 +57,10 @@ namespace DatabaseHelper
                     return typeof(decimal);
                 case MapperDataType.Guid:
                     return typeof(Guid);
+                case MapperDataType.Long:
+                    return typeof(long);
+                case MapperDataType.DateTimeOffset:
+                    return typeof(DateTimeOffset);
                 default:
                     return null;
             }
@@ -164,6 +168,8 @@ namespace DatabaseHelper
         Float,
         Decimal,
         Guid,
+        Long,
+        DateTimeOffset,
     }
 
     public class DataType : IDataType
