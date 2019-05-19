@@ -1,6 +1,7 @@
 ﻿using Microsoft.SqlServer.Dac;
 using Microsoft.SqlServer.Dac.Compare;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,8 +45,35 @@ namespace SchemaComparer
             rdbTargetFile.Checked += RdbTargetFile_Checked;
             btnSourceFileChooser.Click += BtnSourceFileChooser_Click;
             SaveCompare.Click += SaveCompareFile;
-            SaveGenerateScript.Click += SaveGeneratedScript; 
+            SaveGenerateScript.Click += SaveGeneratedScript;
+            ComboSelectSource.SelectionChanged += ComboSelectSource_SelectionChanged;
             SetDefaults();
+        }
+
+        private void ComboSelectSource_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selecteditem = (ComboBoxItem)ComboSelectSource.SelectedItem;
+            if(selecteditem.Name.Equals("SourceSelect"))
+            {
+                var selectSource = new Window
+                {
+                    Title = "Select Source",
+                    Content = new SelectSourceControl(),
+                    Width = 400,
+                    Height = 300,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                    
+                    
+                };
+                selectSource.ShowDialog();
+
+                if (selectSource.DialogResult.HasValue && selectSource.DialogResult.Value)
+                {
+                    SourceEndpoint = selectSource.Tag.ToString();
+                    ComboSelectSource.SelectedIndex = 2;
+                }
+                
+            }
         }
 
         #region Public Properties
@@ -69,12 +97,23 @@ namespace SchemaComparer
             {
 
                 schemaComparison = value;
-                OnPropertyChanged("Comparison");
+                OnPropertyChanged(Comparison);
             }
         }
         public SQLCompare Comparer { get; set; }
         public SchemaCompareScriptGenerationResult GeneratedScriptResult { get; set; }
-        public string SourceConnectionString { get; set; }
+        public string SourceEndpoint
+        {
+            get
+            {
+                return sourceEndpoint;
+            }
+            set
+            {
+                sourceEndpoint = value;
+                OnPropertyChanged("SourceEndpoint");
+            }
+        }
         public string TargetConnectionString { get; set; }
         #endregion
         #region SourcesTab
@@ -89,7 +128,7 @@ namespace SchemaComparer
             set
             {
                 sourceFilePath = value;
-                OnPropertyChanged("SourceFilePath");
+                OnPropertyChanged(SourceFilePath);
             }
         }
         public string TargetFilePath
@@ -98,7 +137,7 @@ namespace SchemaComparer
             set
             {
                 sourceFilePath = value;
-                OnPropertyChanged("TargetFilePath");
+                OnPropertyChanged(TargetFilePath);
             }
         }
         #endregion
@@ -141,8 +180,8 @@ namespace SchemaComparer
         }
         private void CmbsrcDatabase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var constr = new ConnectionHelper(txtsrcServerName.Text, txtsrcUserName.Text, txtsrcPassword.Text, e.AddedItems[0].ToString());
-            SourceConnectionString = constr.GetSqlConnectionString().ToString();
+            var constr = new ConnectionHelper(txtsrcServerName.Text, txtsrcUserName.Text, txtsrcPassword.Text, e.AddedItems[0].ToString(), AuthenticationType.WindowsAuthentication);
+            SourceEndpoint = constr.GetSqlConnectionString().ToString();
         }
 
         private void CmbsrcDatabase_DropDownOpened(object sender, EventArgs e)
@@ -150,7 +189,7 @@ namespace SchemaComparer
             try
             {
                 cmbsrcDatabase.Items.Clear();
-                using (var conn = new ConnectionHelper(txtsrcServerName.Text, txtsrcUserName.Text, txtsrcPassword.Text))
+                using (var conn = new ConnectionHelper(txtsrcServerName.Text, txtsrcUserName.Text, txtsrcPassword.Text, AuthenticationType.WindowsAuthentication))
                 {
                     using (var reader = new SqlCommand("select name from sys.databases WHERE name NOT IN ('master', 'tempdb', 'model', 'msdb');", conn.GetConnection()).ExecuteReader())
                     {
@@ -177,13 +216,13 @@ namespace SchemaComparer
 
         private void CmbtarDatabase_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var constr = new ConnectionHelper(txttarServerName.Text, txttarUserName.Text, txttarPassword.Text, e.AddedItems[0].ToString());
+            var constr = new ConnectionHelper(txttarServerName.Text, txttarUserName.Text, txttarPassword.Text, e.AddedItems[0].ToString(), AuthenticationType.WindowsAuthentication);
             TargetConnectionString = constr.GetSqlConnectionString().ToString();
         }
 
         private void CmbtarDatabase_DropDownOpened(object sender, EventArgs e)
         {
-            using (var conn = new ConnectionHelper(txttarServerName.Text, txttarUserName.Text, txttarPassword.Text))
+            using (var conn = new ConnectionHelper(txttarServerName.Text, txttarUserName.Text, txttarPassword.Text, AuthenticationType.WindowsAuthentication))
             {
                 using (var reader = new SqlCommand("select name from sys.databases WHERE name NOT IN ('master', 'tempdb', 'model', 'msdb');", conn.GetConnection()).ExecuteReader())
                 {
@@ -200,13 +239,14 @@ namespace SchemaComparer
         #region CompareTab
         #region Private Properties
         private SchemaComparison schemaComparison;
+        private string sourceEndpoint;
         #endregion
         private async void BtnCompare_Click(object sender, RoutedEventArgs e)
         {
             //goto compare tab and start comparing
             MainTabControl.SelectedIndex = 1;
 
-            Comparer = new SQLCompare(SourceConnectionString, TargetConnectionString);
+            Comparer = new SQLCompare(SourceEndpoint, TargetConnectionString);
             Comparison = Comparer.Initialize();
 
             btnCompare.IsEnabled = false;
@@ -254,12 +294,12 @@ namespace SchemaComparer
 
             var dialog = new SaveFileDialog();
             dialog.AddExtension = true;
-            dialog.Filter = "SQL Compare File (*.scmp)|*scmp";
+            dialog.DefaultExt = "scmp";
+            dialog.Filter = "SQL Compare File (*.scmp)|*.scmp";
             if (dialog.ShowDialog() == true)
             {
                 Comparison.SaveToFile(dialog.FileName, true);
             }
-
         }
         private void SaveGeneratedScript(object sender, RoutedEventArgs e)
         {
@@ -281,8 +321,9 @@ namespace SchemaComparer
         #region Options Tab
         #endregion
 
-        protected void OnPropertyChanged(string name)
+        protected void OnPropertyChanged(object obj)
         {
+            var name = nameof(obj);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         public event PropertyChangedEventHandler PropertyChanged;

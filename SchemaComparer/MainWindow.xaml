@@ -10,7 +10,47 @@
         Title="MainWindow" Height="800" Width="800">
 
     <TabControl x:Name="MainTabControl">
-
+        <TabItem x:Name="tabMain" Height="20" VerticalAlignment="Top" Header="Sources">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition MaxHeight="23"></RowDefinition>
+                    <RowDefinition MaxHeight="23"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="ComboSelectSource" Grid.Column="0" Margin="0 0 3 0">
+                        <ComboBoxItem x:Name="SourceSelect">
+                            <Label x:Name="lblSourceSelect" Content="Select Source" Padding="0"></Label>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label x:Name="lblSourceClear" Content="Clear Source" Padding="0"></Label>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label x:Name="lblSourceSelected" Content="{Binding SourceEndpoint}" Padding="0"></Label>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <Button x:Name="buttonCompareDirection" Grid.Column="1" Margin="3 0"></Button>
+                    <ComboBox Grid.Column="2" Margin="3 0 0 0">
+                        <ComboBoxItem>
+                            <Label x:Name="lblTargetSelect" Content="Select Source" Padding="0"></Label>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label x:Name="lblTargetClear" Content="Clear Source" Padding="0"></Label>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <Label x:Name="lblTargetSelected" Content="{Binding TargetSelected}" Padding="0"></Label>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+            </Grid>
+        </TabItem>
+        
         <TabItem x:Name="tabSources" Height="20" VerticalAlignment="Top" Header="Sources" >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -18,12 +58,12 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition  MaxHeight="86"></RowDefinition>
+                    <RowDefinition MaxHeight="86"></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition MaxHeight="50"></RowDefinition>
+                    <RowDefinition ></RowDefinition>
                 </Grid.RowDefinitions>
-                <Border BorderThickness="2" BorderBrush="Black" Grid.Column="0" Margin="3" CornerRadius="10">
+                <Border Background="LightGray" Grid.Column="0" Grid.Row="0" Margin="3" CornerRadius="10">
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
@@ -36,11 +76,11 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Label Content="Source Type" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
-                        <RadioButton x:Name="rdbSourceDatabase" Grid.Column="1"  Grid.Row="1" GroupName="SourceGroup"  Content="Database" HorizontalAlignment="Left" VerticalAlignment="Center"></RadioButton>
-                        <RadioButton x:Name="rdbSourceFile" Grid.Column="1" Grid.Row="2" GroupName="SourceGroup" Content="Dac File" HorizontalAlignment="Left" VerticalAlignment="Center"></RadioButton>
+                        <RadioButton x:Name="rdbSourceDatabase" Grid.Column="1" BorderThickness="0" Grid.Row="1" GroupName="SourceGroup"  Content="Database" HorizontalAlignment="Left" VerticalAlignment="Center"></RadioButton>
+                        <RadioButton x:Name="rdbSourceFile" Grid.Column="1" BorderThickness="0" Grid.Row="2" GroupName="SourceGroup" Content="Dac File" HorizontalAlignment="Left" VerticalAlignment="Center"></RadioButton>
                     </Grid>
                 </Border>
-                <Border BorderThickness="2" BorderBrush="Black" Grid.Column="1" Margin="3" CornerRadius="10">
+                <Border Background="LightGray" Grid.Column="1" Grid.Row="0" Margin="3" CornerRadius="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
@@ -53,11 +93,11 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Label Content="Target Type" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"></Label>
-                        <RadioButton x:Name="rdbTargetDatabase" Grid.Column="1" Grid.Row="1"  GroupName="TargetGroup" Content="Database" VerticalAlignment="Center"></RadioButton>
-                        <RadioButton x:Name="rdbTargetFile" Grid.Column="1" Grid.Row="2" GroupName="TargetGroup" Content="Dac File" VerticalAlignment="Center"></RadioButton>
+                        <RadioButton x:Name="rdbTargetDatabase" Grid.Column="1" Grid.Row="1" BorderThickness="0" GroupName="TargetGroup" Content="Database" VerticalAlignment="Center"></RadioButton>
+                        <RadioButton x:Name="rdbTargetFile" Grid.Column="1" Grid.Row="2" BorderThickness="0" GroupName="TargetGroup" Content="Dac File" VerticalAlignment="Center"></RadioButton>
                     </Grid>
                 </Border>
-                <Border BorderThickness="2" BorderBrush="Black" Grid.Column="0" Grid.Row="1" Margin="3" CornerRadius="10">
+                <Border Background="LightGray" Grid.Column="0" Grid.Row="1" Margin="3" CornerRadius="10">
                     
                     <StackPanel x:Name="SourceStack" Orientation="Vertical" Grid.Column="0" Grid.Row="1" Margin="3">
                         <Grid x:Name="SourceDatabaseGrid" Margin="3">
@@ -73,13 +113,13 @@
                                 <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
                             <Label x:Name="lblsrcUserName" Grid.Column="0" Grid.Row="0" Content="Username" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                            <TextBox x:Name="txtsrcUserName" Grid.Column="1" Grid.Row="0" Width="120" Height="23"></TextBox>
+                            <TextBox x:Name="txtsrcUserName" Grid.Column="1" Grid.Row="0" Width="120" Height="23" BorderThickness="0"></TextBox>
                             <Label x:Name="lblsrcPassword" Grid.Column="0" Grid.Row="1" Content="Password" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                            <TextBox x:Name="txtsrcPassword" Grid.Column="1" Grid.Row="1" Width="120" Height="23"></TextBox>
+                            <TextBox x:Name="txtsrcPassword" Grid.Column="1" Grid.Row="1" Width="120" Height="23" BorderThickness="0"></TextBox>
                             <Label x:Name="lblsrcServerName" Grid.Column="0" Grid.Row="2" Content="Server" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                            <TextBox x:Name="txtsrcServerName" Grid.Column="1" Grid.Row="2" Width="120" Height="23"></TextBox>
+                            <TextBox x:Name="txtsrcServerName" Grid.Column="1" Grid.Row="2" Width="120" Height="23" BorderThickness="0"></TextBox>
                             <Label x:Name="lblsrcServer" Grid.Column="0" Grid.Row="3" Content="Select Connection" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                            <ComboBox x:Name="cmbsrcDatabase" Grid.Column="1" Grid.Row="3" Width="120" Height="23"></ComboBox>
+                            <ComboBox x:Name="cmbsrcDatabase" Grid.Column="1" Grid.Row="3" Width="120" Height="23" BorderThickness="0"></ComboBox>
                             <Label x:Name="lblsrcServerStatus" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                         </Grid>
                     <Grid x:Name="SourceFileGrid" Margin="3">
@@ -93,12 +133,12 @@
                             <RowDefinition ></RowDefinition>
                         </Grid.RowDefinitions>
                         <Label Content="Source File Name" Grid.ColumnSpan="2" Grid.Row="0"></Label>
-                        <TextBox x:Name="txtSourceFile" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding SourceFilePath}" VerticalAlignment="Center" Height="23"></TextBox>
+                            <TextBox x:Name="txtSourceFile" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding SourceFilePath}" VerticalAlignment="Center" Height="23" BorderThickness="0"></TextBox>
                         <Button x:Name="btnSourceFileChooser" Content="Select File" Grid.Row="1" Grid.Column="2" Height="23"></Button>
                     </Grid>
                 </StackPanel>
                 </Border>
-                <Border BorderThickness="2" BorderBrush="Black" Grid.Column="1" Grid.Row="1" Margin="3" CornerRadius="10">
+                <Border Background="LightGray" Grid.Column="1" Grid.Row="1" Margin="3" CornerRadius="10">
                     <StackPanel x:Name="TargetStack" Orientation="Vertical" Grid.Column="1" Grid.Row="1" Margin="3">
                         <Grid x:Name="TargetDatabaseGrid" Margin="3">
                             <Grid.ColumnDefinitions>
@@ -113,13 +153,13 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label x:Name="lbltarUserName" Grid.Column="0" Grid.Row="0" Content="Username" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                            <TextBox x:Name="txttarUserName" Grid.Column="1" Grid.Row="0" Width="120" Height="23"></TextBox>
+                            <TextBox x:Name="txttarUserName" Grid.Column="1" Grid.Row="0" Width="120" Height="23" BorderThickness="0"></TextBox>
                             <Label x:Name="lbltarPassword" Grid.Column="0" Grid.Row="1" Content="Password" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                            <TextBox x:Name="txttarPassword" Grid.Column="1" Grid.Row="1" Width="120" Height="23"></TextBox>
+                            <TextBox x:Name="txttarPassword" Grid.Column="1" Grid.Row="1" Width="120" Height="23" BorderThickness="0"></TextBox>
                             <Label x:Name="lbltarServerName" Grid.Column="0" Grid.Row="2" Content="Server" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                            <TextBox x:Name="txttarServerName" Grid.Column="1" Grid.Row="2" Width="120" Height="23"></TextBox>
+                            <TextBox x:Name="txttarServerName" Grid.Column="1" Grid.Row="2" Width="120" Height="23" BorderThickness="0"></TextBox>
                             <Label x:Name="lbltarServer" Grid.Column="0" Grid.Row="3" Content="Select Connection" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
-                            <ComboBox x:Name="cmbtarDatabase" Grid.Column="1" Grid.Row="3" Width="120" Height="23"></ComboBox>
+                            <ComboBox x:Name="cmbtarDatabase" Grid.Column="1" Grid.Row="3" Width="120" Height="23" BorderThickness="0"></ComboBox>
                             <Label x:Name="lbltarServerStatus" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                         </Grid>
                         <Grid x:Name="TargetFileGrid" Margin="3">
@@ -133,7 +173,7 @@
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label Content="Target File Name" Grid.ColumnSpan="2" Grid.Row="0"></Label>
-                            <TextBox x:Name="txtTargetFile" Grid.Row="1" Grid.ColumnSpan="2" Height="23"></TextBox>
+                            <TextBox x:Name="txtTargetFile" Grid.Row="1" Grid.ColumnSpan="2" Height="23" BorderThickness="0"></TextBox>
                             <Button x:Name="btnTargetFileChooser" Content="Select File" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Height="23"></Button>
                         </Grid>
                     </StackPanel>
@@ -161,6 +201,7 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                 
                     <Label x:Name="CompareStatusLabel" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
                     <!--<StackPanel Grid.Column="1">
                         

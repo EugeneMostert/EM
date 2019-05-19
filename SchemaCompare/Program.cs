@@ -9,6 +9,8 @@ using System.IO;
 using Microsoft.SqlServer.Dac;
 using System.Data;
 using System.Data.Sql;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace SchemaCompare
 {
@@ -17,11 +19,19 @@ namespace SchemaCompare
 
         public static SchemaCompareEndpoint SourceEndPoint { get; set; }
         public static SchemaCompareEndpoint TargetEndPoint { get; set; }
-
+        public static string Testing { get; set; }
         static void Main(string[] args)
         {
+            var type = Testing.GetType();
+            var propertyInfo = type.GetProperty(Testing);
+            var propName = propertyInfo.Name;
 
-
+            //string file = "dacOptions.json";
+            //var json = JsonConvert.SerializeObject(new DacDeployOptions());
+            //File.WriteAllText("dacOptions.json", json);
+            //Process.Start(file);
+            //Console.WriteLine(json);
+            //Console.Read();
             //var dacOptions = new DacDeployOptions();
             //var options = dacOptions.GetType().GetProperties();
             //var diclist = new Dictionary<string, string>();
@@ -66,28 +76,22 @@ namespace SchemaCompare
             //}
 
 
-            var sourceconn = @"data source=(localdb)\mssqllocaldb;initial catalog=identity;integrated security=true;connect timeout=30;encrypt=false;trustservercertificate=false;applicationintent=readwrite;multisubnetfailover=false";
-            var targetconn = @"data source=(localdb)\mssqllocaldb;initial catalog=aspdatadb;integrated security=true;connect timeout=30;encrypt=false;trustservercertificate=false;applicationintent=readwrite;multisubnetfailover=false";
-            ////string sourcedacfile = "";
-            ////string targetdacfile = "";
-            //string targetdatabasename = "";
+            //var sourceconn = @"data source=(localdb)\mssqllocaldb;initial catalog=identity;integrated security=true;connect timeout=30;encrypt=false;trustservercertificate=false;applicationintent=readwrite;multisubnetfailover=false";
+            //var targetconn = @"data source=(localdb)\mssqllocaldb;initial catalog=aspdatadb;integrated security=true;connect timeout=30;encrypt=false;trustservercertificate=false;applicationintent=readwrite;multisubnetfailover=false";
 
-            SourceEndPoint = GetEndPoint(sourceconn);
-            TargetEndPoint = GetEndPoint(targetconn);
+            //SourceEndPoint = GetEndPoint(sourceconn);
+            //TargetEndPoint = GetEndPoint(targetconn);
 
-            //if (targetendpoint is schemacomparedatabaseendpoint)
-            //    targetdatabasename = ((schemacomparedatabaseendpoint)targetendpoint).databasename;
-            //else
-            //    targetdatabasename = "";
+    
 
 
-            var comparison = new SchemaComparison(SourceEndPoint, TargetEndPoint);
-            var result = comparison.Compare();
-            var differences = result.GenerateScript("testing");
-            var changescript = differences.Script;
-            var masterScript = differences.MasterScript;
-            Console.WriteLine(masterScript);
-            Console.WriteLine(changescript);
+            //var comparison = new SchemaComparison(SourceEndPoint, TargetEndPoint);
+            //var result = comparison.Compare();
+            //var differences = result.GenerateScript("testing");
+            //var changescript = differences.Script;
+            //var masterScript = differences.MasterScript;
+            //Console.WriteLine(masterScript);
+            //Console.WriteLine(changescript);
         }
 
         public static SchemaCompareEndpoint GetEndPoint(string endPoint)
