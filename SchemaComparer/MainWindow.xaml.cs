@@ -58,7 +58,7 @@ namespace SchemaComparer
                 var selectSource = new Window
                 {
                     Title = "Select Source",
-                    Content = new SelectSourceControl(),
+                    Content = new SelectSourceView(),
                     Width = 400,
                     Height = 300,
                     WindowStartupLocation = WindowStartupLocation.CenterOwner

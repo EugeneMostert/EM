@@ -24,13 +24,11 @@ namespace SchemaComparer.VML
         //This enables animation, styling, binding, etc...
 
         public static readonly DependencyProperty AutoHookedUpViewModelProperty =
-           DependencyProperty.RegisterAttached("AutoHookedUpViewModel",
-           typeof(bool), typeof(ViewModelLocator), new PropertyMetadata(false,
-           AutoHookedUpViewModelChanged));
+                                DependencyProperty.RegisterAttached("AutoHookedUpViewModel",
+                                                                    typeof(bool), typeof(ViewModelLocator), new PropertyMetadata(false,
+                                                                    AutoHookedUpViewModelChanged));
 
-
-        private static void AutoHookedUpViewModelChanged(DependencyObject d,
-   DependencyPropertyChangedEventArgs e)
+        private static void AutoHookedUpViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (DesignerProperties.GetIsInDesignMode(d)) return;
             var viewType = d.GetType();

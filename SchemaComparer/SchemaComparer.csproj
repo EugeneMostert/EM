@@ -78,15 +78,17 @@
     </ApplicationDefinition>
     <Compile Include="ComparerOptions.cs" />
     <Compile Include="ConfigManager.cs" />
-    <Compile Include="Helpers\EnumDescrptionConverter.cs" />
-    <Compile Include="SelectSourceControl.xaml.cs">
-      <DependentUpon>SelectSourceControl.xaml</DependentUpon>
+    <Compile Include="Helpers\EnumDescriptionConverter.cs" />
+    <Compile Include="Models\SelectSourceModel.cs" />
+    <Compile Include="Views\SelectSourceView.xaml.cs">
+      <DependentUpon>SelectSourceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SelectSourceWindow.xaml.cs">
       <DependentUpon>SelectSourceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="SQLCompare.cs" />
+    <Compile Include="ViewModel\SelectSourceViewModel.cs" />
     <Compile Include="VML\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -101,7 +103,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SelectSourceControl.xaml">
+    <Page Include="Views\SelectSourceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
